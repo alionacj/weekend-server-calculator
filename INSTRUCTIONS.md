@@ -1,11 +1,18 @@
 # Weekend Challenge: Server Side Calculator
 
+## TO DO:
+  * make code compliant with test conditions
+  * do stretch goals
+  * do some CSS formatting
+
+#### OVERVIEW:
 Your task is to create a calculator app that demonstrates your understanding of the client/server request/response cycle. To ensure that your app is making sensible use of the request/response cycle:
-* All mathematical logic **must** be implemented on the server.
-* Calculation history data **must** be stored on the server.
-* The client-side code **must** be able to:
-  * Ask the server for its calculation history, then render it appropriately on the DOM.
-  * Obtain "new calculation" data via user input, then send it to the server.
+
+* (X) All mathematical logic **must** be implemented on the server.
+* (X) Calculation history data **must** be stored on the server.
+* (X) The client-side code **must** be able to:
+  * (X) Ask the server for its calculation history, then render it appropriately on the DOM.
+  * (X) Obtain "new calculation" data via user input, then send it to the server.
 
 ---
 
@@ -13,22 +20,24 @@ Your task is to create a calculator app that demonstrates your understanding of 
 
 #### Client-Side:
 
-* Inside the `<section data-testid="resultHistory">` element, display a list of all previous calculations on the page when it loads (using a `GET '/calculations'` request). 
-  * Update this list when a new calculation is made.
-* Inside the `<section data-testid="recentResult">` element, display the most recent calculation **result**.
-  * Update this when a new calculation is made.
+* Inside the `<section data-testid="resultHistory">` element
+  * (X) display a list of all previous calculations on the page when it loads (using a `GET '/calculations'` request). 
+  * (X) Update this list when a new calculation is made.
+* Inside the `<section data-testid="recentResult">` element
+  * (X) display the most recent calculation **result**.
+  * (X) Update this when a new calculation is made.
 * Inside `<form data-testid="calculator">`:
-  * Create a user interface where the user can input two values and select a mathematical operator.
-    * Each mathematical operator is represented by a button:
-      * `<button>+</button>`
-  * When the `=` button is clicked, capture the input values and operator, then send this data to `POST '/calculations'`. You'll need to format it like so:
-    * `{ numOne: 25, numTwo: 10, operator: '+' }`
-  * There should be a `'C'` button that will clear the inputs.
+  * (X) create a user interface where the user can input two values and select a mathematical operator.
+    * (X) Each mathematical operator is represented by a button: `<button>+</button>`
+    * When the `=` button is clicked
+      * (X) capture the input values and operator, then send this data to `POST '/calculations'`. You'll need to format it like so: `{ numOne: 25, numTwo: 10, operator: '+' }`
+  * (X) There should be a `'C'` button that will clear the inputs.
 
 #### Server-Side:
 
-* Create a `GET '/calculations'` route that will send the `calculations` array back to the client. When populated with data, this array needs to be shaped like this:
-  * ```js
+* (X) Create a `GET '/calculations'` route that will send the `calculations` array back to the client.
+  * (X) When populated with data, this array needs to be shaped like this:
+    ```js
       [
         {
           numOne: 3,
@@ -44,7 +53,7 @@ Your task is to create a calculator app that demonstrates your understanding of 
         }
       ]
     ```
-* Create a `POST '/calculations` route that will "do the math" and obtain the correct `result` value. It must be able to handle addition, subtraction, multiplication, and division.
+* (X) "do the math" and obtain the correct `result` value. It must be able to handle addition, subtraction, multiplication, and division.
   * For example, if the `POST` route receives this data:
     * `{ numOne: 25, numTwo: 10, operator: '+' }`
   * It should "do the math," then push this object into the server-side `calculations` array:
@@ -54,9 +63,9 @@ Your task is to create a calculator app that demonstrates your understanding of 
 
 #### Note About Data Persistence:
 
-* The entire *calculation history* and *most recent calculation's result* should be correctly rendered, even after refreshing the page.
+* (X) The entire *calculation history* and *most recent calculation's result* should be correctly rendered, even after refreshing the page.
   * The data lives on the server!
-* It's expected that these things will "go away" after restarting the server. We'll talk about long term data storage next week.
+* (X) It's expected that these things will "go away" after restarting the server. We'll talk about long term data storage next week.
 
 #### Base Mode Calculator Interface:
 
@@ -129,18 +138,18 @@ Your task is to create a calculator app that demonstrates your understanding of 
 
 ## Stretch Goals:
 
-* Only allow the `POST` request to happen if all necessary input is ready.
+* (X) Only allow the `POST` request to happen if all necessary input is ready.
   * *Data integrity is of maximum importance! Sometimes users hit the "go button" without fully inputting the needed fields. Display an alert if they left something empty, and don't send bad or incomplete data to the server.*
 
-* Allow a user to clear the calculation history by clicking on a button. (This should empty out the `calculations` array on the server!) Technically this shouldn't be a `GET` or a `POST`. Look into making a `DELETE` request!
+* (X) Allow a user to clear the calculation history by clicking on a button. (This should empty out the `calculations` array on the server!) Technically this shouldn't be a `GET` or a `POST`. Look into making a `DELETE` request!
   * *`GET`s are used to, well, get information from the server. `POST`s are used to send new info to the server. `DELETE`s are used for, you guessed it, deleting info already on the server.*
 
-* Modify the calculator interface to look and behave like an actual calculator, as shown below.
+* () Modify the calculator interface to look and behave like an actual calculator, as shown below.
   * *Interfaces that mirror real world objects are often more intuitive and self-explanatory for users.*
   * **NOTE:** This will cause the client-side tests to fail! If you're feeling extra stretchy, see if you can figure out how to write new tests that verify your new interface. (This will be tricky!)
   <img src="./images/stretchGoal_interface.gif" alt="stretch goal calculator interface" width="400px">
 
-* Allow a user to click on an entry in the calculation history to re-run that calculation. This should display the answer on the calculator interface like a normal calculation.
+* () Allow a user to click on an entry in the calculation history to re-run that calculation. This should display the answer on the calculator interface like a normal calculation.
   * *Anticipating what users will desire, then adding that feature to the interface is often a logical progression that ends up being a project's "next step."*
 
 ---

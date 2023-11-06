@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Server-Side Calculator</title>    
+    <link rel="stylesheet" href="style.css">
     <script defer src="scripts/axios.js"></script>
     <script defer src="scripts/client.js" charset="utf-8"></script>
   </head>
@@ -10,22 +11,26 @@
     <h1>Server-Side Calculator</h1>
 
     <form data-testid="calculator">
-      <input id="firstNumber" placeholder="First Number">
+      <input required id="numOne" type="number" placeholder="First Number">
       <button onclick="setOperator(event)">+</button>
       <button onclick="setOperator(event)">-</button>
       <button onclick="setOperator(event)">*</button>
       <button onclick="setOperator(event)">/</button>
-      <input id='secondNumber' placeholder="Second Number">
-      <button onclick="runCalculation(event)">=</button>
+      <input required id='numTwo' type="number" placeholder="Second Number">
+      <button onclick="bundleForm(event)">=</button>
       <button onclick="clearForms(event)">C</button>
     </form>
 
     <section data-testid="recentResult">
       <!-- The most recent calculation result goes here. -->
+      <h3 id="answer"></h3>
     </section>
 
     <section data-testid="resultHistory">
-      <!-- The list of calculation results goes here. -->
+      <ul id="calculationHistory">
+
+      </ul>
+      <button onclick="clearHistory(event)">Clear History</button>
     </section>
   </body>
 </html>
