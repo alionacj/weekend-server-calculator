@@ -1,21 +1,19 @@
 // #### SERVER SIDE ####
-
-
 function onStart() {
   console.log('server.js is sourced!')
 }; onStart();
 
-  // #### SERVER ####
+
+// ## SERVER ##
 const express = require('express');
 const app = express();
 let PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.static('server/public'));
 
-  // calculation history
-let calculations = []
 
-  // calculations
+// ## CALCULATIONS ##
+let calculations = []
 function runCalculation() {
     // runs calculation
   let numOne = calculations[calculations.length-1].numOne;
@@ -43,13 +41,19 @@ function runCalculation() {
   calculations[calculations.length-1].result = result;
 }
 
-  // #### ROUTES ####
+
+// ## ROUTES ##
 app.get('/calculations', (req, res) => {
     console.log(' - GET request received by client.');
     console.log(' - Sending calculation history to client...');
     console.log(' - Calculation history:', calculations);
   res.send(calculations);
 });
+// app.get('/latestCalculation', (req, res) => {
+//     console.log(' - GET request received by client.');
+//     console.log(' - Sending latest calculation to client...');
+//   res.send(calculations[calculations.length-1]);
+// });
 app.post('/calculations', (req, res) => {
     console.log('POST request received!');
   let newCalculation = req.body;
@@ -70,13 +74,6 @@ app.post('/clearHistory', (req, res) => {
   console.log(' - Done!');
 res.sendStatus(201);
 })
-
-
-
-
-
-
-// #### NO ENTRY ####
 
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:

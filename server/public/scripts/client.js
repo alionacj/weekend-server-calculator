@@ -1,13 +1,11 @@
 // #### CLIENT SIDE ####
-
-
-let operator;
-
 function onStart() {
     console.log('client.js is sourced!');
 }; onStart(); getCalculations();
 
 
+// ## USER INPUT FUNCTIONALITY ##
+let operator;
 function setOperator(event) {
     event.preventDefault();
         // stores button into global operator
@@ -55,23 +53,6 @@ function bundleForm(event){
         console.error('ERROR: NEED BOTH INPUTS')
     }
 }
-
-function getCalculations() {
-    axios({
-        method: 'GET',
-        url: '/calculations'
-      })
-      .then(function(response) {
-          console.log('GET response recieved from server!');
-        let calculationHistory = response.data;
-          console.log(' - Parsing data from response package...')
-          console.log(' - Calculations:', calculationHistory);
-        renderDisplay(calculationHistory);
-        }).catch(function(error) {
-            console.log(error);
-            alert('Something bad happened! Check the console for more details.');
-        })
-}
 function clearHistory(event) {
     axios({
         method: 'POST',
@@ -89,6 +70,25 @@ function clearHistory(event) {
             alert('Something bad happened! Check the console for more details.');
         });
 }
+
+
+// ## RETRIEVE DATA AND RENDER ##
+function getCalculations() {
+    axios({
+        method: 'GET',
+        url: '/calculations'
+      })
+      .then(function(response) {
+          console.log('GET response recieved from server!');
+        let calculationHistory = response.data;
+          console.log(' - Parsing data from response package...')
+          console.log(' - Calculations:', calculationHistory);
+        renderDisplay(calculationHistory);
+        }).catch(function(error) {
+            console.log(error);
+            alert('Something bad happened! Check the console for more details.');
+        })
+}
 function renderDisplay(calculationHisory) {
     if (calculationHisory[calculationHisory.length-1]) {
         let answerDisplay = document.getElementById('answer');
@@ -99,11 +99,12 @@ function renderDisplay(calculationHisory) {
         for (let calculation of calculationHisory)
             historyDisplay.innerHTML +=
             `
-            <li>${calculation.numOne} ${calculation.operator} ${calculation.numTwo} = ${calculation.result}</li>
+            <li onclick="recallCalculation(event)">${calculation.numOne} ${calculation.operator} ${calculation.numTwo} = ${calculation.result}</li>
             `
     } else {
         let answerDisplay = document.getElementById('answer');
         answerDisplay.innerHTML = '';
         let historyDisplay = document.getElementById('calculationHistory');
         historyDisplay.innerHTML = '';
-}}
+    }
+}
